@@ -88,15 +88,16 @@ body {
 .close {
     position: absolute;
     top: 15px;
-    right: 35px;
+    right: 15px; /* Сместим кнопку ближе к краю */
     color: #fff;
-    font-size: 40px; /* Увеличим размер шрифта */
+    font-size: 40px;
     font-weight: bold;
-    padding: 10px; /* Добавим отступы */
-    background-color: rgba(0, 0, 0, 0.5); /* Добавим фоновый цвет */
-    border-radius: 50%; /* Сделаем кнопку круглой */
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
     transition: 0.3s;
     cursor: pointer;
+    z-index: 1001; /* Сделаем кнопку поверх изображения */
 }
 
 .close:hover,
