@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let isSwiping = false;
     let touchStartY = 0;
     let touchEndY = 0;
+    let touchStartX = 0;
+    let touchEndX = 0;
 
     images.forEach((img, index) => {
         img.addEventListener('click', () => {
@@ -33,22 +35,29 @@ document.addEventListener('DOMContentLoaded', function() {
     modalContentContainer.addEventListener('touchstart', (e) => {
         if (isSwiping) return;
         touchStartY = e.changedTouches[0].screenY;
+        touchStartX = e.changedTouches[0].screenX;
     });
 
     modalContentContainer.addEventListener('touchend', (e) => {
         if (isSwiping) return;
         touchEndY = e.changedTouches[0].screenY;
+        touchEndX = e.changedTouches[0].screenX;
         handleSwipe();
     });
 
     function handleSwipe() {
-        if (touchEndY < touchStartY - 30) { // добавим порог для свайпа
-            // Swipe up
-            swipeImage('up');
-        }
-        if (touchEndY > touchStartY + 30) { // добавим порог для свайпа
-            // Swipe down
-            swipeImage('down');
+        const swipeThreshold = 50; // добавим порог для свайпа
+        const xDiff = Math.abs(touchEndX - touchStartX);
+        const yDiff = Math.abs(touchEndY - touchStartY);
+
+        if (yDiff > swipeThreshold && yDiff > xDiff) {
+            if (touchEndY < touchStartY) {
+                // Swipe up
+                swipeImage('up');
+            } else if (touchEndY > touchStartY) {
+                // Swipe down
+                swipeImage('down');
+            }
         }
     }
 
