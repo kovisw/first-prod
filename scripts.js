@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const images = document.querySelectorAll('.gallery img');
     const modal = document.getElementById('modal');
-    const modalImg = document.getElementById('modal-img');
+    let modalImg = document.getElementById('modal-img');
     const close = document.getElementById('close');
     const modalContentContainer = document.getElementById('modal-content-container');
     let currentIndex = 0;
@@ -32,12 +32,12 @@ document.addEventListener('DOMContentLoaded', function() {
         modal.style.display = 'none';
     }
 
-    modalImg.addEventListener('touchstart', (e) => {
+    modalContentContainer.addEventListener('touchstart', (e) => {
         if (isSwiping) return;
         touchStartY = e.changedTouches[0].screenY;
     });
 
-    modalImg.addEventListener('touchend', (e) => {
+    modalContentContainer.addEventListener('touchend', (e) => {
         if (isSwiping) return;
         touchEndY = e.changedTouches[0].screenY;
         handleSwipe();
