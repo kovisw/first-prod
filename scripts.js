@@ -16,13 +16,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     close.addEventListener('click', closeModal);
-    modal.addEventListener('click', closeModal);
 
     function openModal(index) {
         currentIndex = index;
         modal.style.display = 'block';
         modalImg.src = images[currentIndex].src;
         modalImg.classList.remove('enter-from-bottom', 'enter-from-top', 'exit-to-top', 'exit-to-bottom');
+        modalImg.style.transform = '';
+        modalImg.style.opacity = '';
     }
 
     function closeModal() {
