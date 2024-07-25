@@ -10,19 +10,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
     images.forEach((img, index) => {
         img.addEventListener('click', () => {
-            modal.style.display = 'block';
-            modalImg.src = img.src;
-            currentIndex = index;
+            openModal(index);
         });
     });
 
-    close.addEventListener('click', () => {
-        modal.style.display = 'none';
-    });
+    close.addEventListener('click', closeModal);
+    modal.addEventListener('click', closeModal);
 
-    modal.addEventListener('click', () => {
+    function openModal(index) {
+        currentIndex = index;
+        modal.style.display = 'block';
+        modalImg.src = images[currentIndex].src;
+        modalImg.classList.add('enter-from-bottom');
+        modalImg.addEventListener('animationend', () => {
+            modalImg.classList.remove('enter-from-bottom');
+        }, { once: true });
+    }
+
+    function closeModal() {
         modal.style.display = 'none';
-    });
+    }
 
     modalImg.addEventListener('touchstart', (e) => {
         if (isSwiping) return;
@@ -47,22 +54,29 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function swipeImage(direction) {
+        if (isSwiping) return;
         isSwiping = true;
         let newIndex;
+        let exitClass;
+        let enterClass;
+
         if (direction === 'up') {
             newIndex = (currentIndex + 1) % images.length;
-            modalImg.classList.add('exit-to-left');
+            exitClass = 'exit-to-top';
+            enterClass = 'enter-from-bottom';
         } else if (direction === 'down') {
             newIndex = (currentIndex - 1 + images.length) % images.length;
-            modalImg.classList.add('exit-to-right');
+            exitClass = 'exit-to-bottom';
+            enterClass = 'enter-from-top';
         }
 
+        modalImg.classList.add(exitClass);
         modalImg.addEventListener('transitionend', () => {
-            modalImg.classList.remove('exit-to-left', 'exit-to-right');
+            modalImg.classList.remove(exitClass);
             modalImg.src = images[newIndex].src;
-            modalImg.classList.add(direction === 'up' ? 'enter-from-right' : 'enter-from-left');
+            modalImg.classList.add(enterClass);
             modalImg.addEventListener('transitionend', () => {
-                modalImg.classList.remove('enter-from-right', 'enter-from-left');
+                modalImg.classList.remove(enterClass);
                 isSwiping = false;
                 currentIndex = newIndex;
             }, { once: true });
