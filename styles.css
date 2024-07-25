@@ -90,8 +90,11 @@ body {
     top: 15px;
     right: 35px;
     color: #fff;
-    font-size: 40px;
+    font-size: 40px; /* Увеличим размер шрифта */
     font-weight: bold;
+    padding: 10px; /* Добавим отступы */
+    background-color: rgba(0, 0, 0, 0.5); /* Добавим фоновый цвет */
+    border-radius: 50%; /* Сделаем кнопку круглой */
     transition: 0.3s;
     cursor: pointer;
 }
