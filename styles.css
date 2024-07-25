@@ -101,3 +101,25 @@ body {
     text-decoration: none;
     cursor: pointer;
 }
+
+/* Navigation Buttons */
+.nav-button {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 1001;
+    color: #fff;
+    padding: 10px;
+}
+
+#prev-button {
+    top: 10%;
+}
+
+#next-button {
+    bottom: 10%;
+}
