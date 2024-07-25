@@ -42,11 +42,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function handleSwipe() {
-        if (touchEndY < touchStartY) {
+        if (touchEndY < touchStartY - 30) { // добавим порог для свайпа
             // Swipe up
             swipeImage('up');
         }
-        if (touchEndY > touchStartY) {
+        if (touchEndY > touchStartY + 30) { // добавим порог для свайпа
             // Swipe down
             swipeImage('down');
         }
