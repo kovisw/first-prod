@@ -1,9 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
     const images = document.querySelectorAll('.gallery img');
     const modal = document.getElementById('modal');
-    const modalImg = document.getElementById('modal-img');
+    let modalImg = document.getElementById('modal-img');
     const close = document.getElementById('close');
     const modalContentContainer = document.getElementById('modal-content-container');
+    const prevButton = document.getElementById('prev-button');
+    const nextButton = document.getElementById('next-button');
     let currentIndex = 0;
     let isSwiping = false;
     let touchStartY = 0;
@@ -17,6 +19,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     close.addEventListener('click', closeModal);
     modal.addEventListener('click', closeModal);
+    prevButton.addEventListener('click', () => swipeImage('down'));
+    nextButton.addEventListener('click', () => swipeImage('up'));
 
     function openModal(index) {
         currentIndex = index;
