@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const modal = document.getElementById('modal');
     const modalImg = document.getElementById('modal-img');
     const close = document.getElementById('close');
+    const modalContentContainer = document.getElementById('modal-content-container');
     let currentIndex = 0;
     let isSwiping = false;
     let touchStartY = 0;
@@ -70,16 +71,18 @@ document.addEventListener('DOMContentLoaded', function() {
             enterClass = 'enter-from-top';
         }
 
+        const newImg = document.createElement('img');
+        newImg.src = images[newIndex].src;
+        newImg.classList.add('modal-content', enterClass);
+        modalContentContainer.appendChild(newImg);
+
         modalImg.classList.add(exitClass);
         modalImg.addEventListener('transitionend', () => {
-            modalImg.classList.remove(exitClass);
-            modalImg.src = images[newIndex].src;
-            modalImg.classList.add(enterClass);
-            modalImg.addEventListener('transitionend', () => {
-                modalImg.classList.remove(enterClass);
-                isSwiping = false;
-                currentIndex = newIndex;
-            }, { once: true });
+            modalImg.remove();
+            newImg.classList.remove(enterClass);
+            modalImg = newImg;
+            isSwiping = false;
+            currentIndex = newIndex;
         }, { once: true });
     }
 });
