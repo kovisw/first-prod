@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const images = document.querySelectorAll('.gallery img');
     const modal = document.getElementById('modal');
-    let modalImg = document.getElementById('modal-img');
+    const modalImg = document.getElementById('modal-img');
     const close = document.getElementById('close');
     const modalContentContainer = document.getElementById('modal-content-container');
     let currentIndex = 0;
@@ -22,10 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
         currentIndex = index;
         modal.style.display = 'block';
         modalImg.src = images[currentIndex].src;
-        modalImg.classList.add('enter-from-bottom');
-        modalImg.addEventListener('animationend', () => {
-            modalImg.classList.remove('enter-from-bottom');
-        }, { once: true });
+        modalImg.classList.remove('enter-from-bottom', 'enter-from-top', 'exit-to-top', 'exit-to-bottom');
     }
 
     function closeModal() {
