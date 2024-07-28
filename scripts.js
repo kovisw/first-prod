@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function openModal(index) {
         currentIndex = index;
         modal.style.display = 'block';
-        modalImg.src = images[currentIndex].src;
+        modalImg.src = images[currentIndex].getAttribute('data-src');
         modalImg.classList.remove('enter-from-bottom', 'enter-from-top', 'exit-to-top', 'exit-to-bottom');
         modalImg.style.transform = '';
         modalImg.style.opacity = '';
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         const newImg = document.createElement('img');
-        newImg.src = images[newIndex].src;
+        newImg.src = images[newIndex].getAttribute('data-src');
         newImg.classList.add('modal-content', enterClass);
         modalContentContainer.appendChild(newImg);
 
