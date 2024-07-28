@@ -106,3 +106,13 @@ body {
     text-decoration: none;
     cursor: pointer;
 }
+
+/* Styles for lazyloading placeholders */
+.lazyload {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.lazyloaded {
+    opacity: 1;
+}
