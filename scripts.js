@@ -8,8 +8,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let isSwiping = false;
     let touchStartY = 0;
     let touchEndY = 0;
-    let touchStartX = 0;
-    let touchEndX = 0;
 
     images.forEach((img, index) => {
         img.addEventListener('click', () => {
@@ -35,26 +33,23 @@ document.addEventListener('DOMContentLoaded', function() {
     modalContentContainer.addEventListener('touchstart', (e) => {
         if (isSwiping) return;
         touchStartY = e.changedTouches[0].screenY;
-        touchStartX = e.changedTouches[0].screenX;
     });
 
     modalContentContainer.addEventListener('touchend', (e) => {
         if (isSwiping) return;
         touchEndY = e.changedTouches[0].screenY;
-        touchEndX = e.changedTouches[0].screenX;
         handleSwipe();
     });
 
     function handleSwipe() {
         const swipeThreshold = 50; // добавим порог для свайпа
-        const xDiff = Math.abs(touchEndX - touchStartX);
-        const yDiff = Math.abs(touchEndY - touchStartY);
+        const yDiff = touchEndY - touchStartY;
 
-        if (yDiff > swipeThreshold && yDiff > xDiff) {
-            if (touchEndY < touchStartY) {
+        if (Math.abs(yDiff) > swipeThreshold) {
+            if (yDiff < 0) {
                 // Swipe up
                 swipeImage('up');
-            } else if (touchEndY > touchStartY) {
+            } else {
                 // Swipe down
                 swipeImage('down');
             }
@@ -68,11 +63,11 @@ document.addEventListener('DOMContentLoaded', function() {
         let exitClass;
         let enterClass;
 
-        if (direction === 'up') {
+        if (direction === 'up' || direction === 'next') {
             newIndex = (currentIndex + 1) % images.length;
             exitClass = 'exit-to-top';
             enterClass = 'enter-from-bottom';
-        } else if (direction === 'down') {
+        } else if (direction === 'down' || direction === 'prev') {
             newIndex = (currentIndex - 1 + images.length) % images.length;
             exitClass = 'exit-to-bottom';
             enterClass = 'enter-from-top';
@@ -92,4 +87,28 @@ document.addEventListener('DOMContentLoaded', function() {
             currentIndex = newIndex;
         }, { once: true });
     }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        if (modal.style.display === 'block') {
+            if (e.key === 'ArrowUp') {
+                swipeImage('prev');
+            } else if (e.key === 'ArrowDown') {
+                swipeImage('next');
+            } else if (e.key === 'Escape') {
+                closeModal();
+            }
+        }
+    });
+
+    // Mouse wheel navigation
+    modal.addEventListener('wheel', function(e) {
+        if (modal.style.display === 'block') {
+            if (e.deltaY < 0) {
+                swipeImage('prev');
+            } else if (e.deltaY > 0) {
+                swipeImage('next');
+            }
+        }
+    });
 });
